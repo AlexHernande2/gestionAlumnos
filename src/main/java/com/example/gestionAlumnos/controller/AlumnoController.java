@@ -46,8 +46,45 @@ public class AlumnoController {
     public Alumno putAlumno(@RequestBody Alumno alumno){
         for(Alumno a: alumnos){
             if(a.getID() == alumno.getID()){
-                
+                a.setNombre(alumno.getNombre());
+                a.setEmail(alumno.getEmail());
+                a.setCurso(alumno.getCurso());
+
+                return a;
             }
         }
+        return null;
+    }
+
+    //actualizar un campo en especifico
+    @PatchMapping
+    public Alumno patchAlumno (@RequestBody Alumno alumno ){
+        for(Alumno b : alumnos){
+            if(b.getID() == alumno.getID()){
+                if(alumno.getNombre() != null){
+                    b.setNombre(alumno.getNombre());
+                }
+                if(alumno.getEmail() != null){
+                    b.setEmail(alumno.getEmail());
+                }
+                if (alumno.getCurso() != null) {
+                    b.setCurso(alumno.getCurso());
+                }
+                return b;
+            }
+        }
+        return null;
+    }
+    //elimianr Alumno
+
+    @DeleteMapping ("/{id}")
+    public  Alumno deleteAlumno(@PathVariable int id){
+        for (Alumno g: alumnos){
+            if (g.getID() == id){
+               alumnos.remove(g);
+               return g;
+            }
+        }
+        return null;
     }
 }
